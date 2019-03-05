@@ -1533,7 +1533,7 @@
           "description": "The list of user identities associated with agent pools. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'."
         }
       },
-      "description": "Identity for the virtual machine."
+      "description": "Identity for the managed cluster."
     },
     "OrchestratorProfile": {
       "properties": {
