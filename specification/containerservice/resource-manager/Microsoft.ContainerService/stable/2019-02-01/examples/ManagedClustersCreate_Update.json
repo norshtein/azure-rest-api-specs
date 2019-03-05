@@ -18,7 +18,11 @@
             "name": "nodepool1",
             "count": 3,
             "vmSize": "Standard_DS1_v2",
-            "osType": "Linux"
+            "osType": "Linux",
+            "identity": {
+              "type": "UserAssigned",
+              "identityId": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}"
+            }
           }
         ],
         "linuxProfile": {
@@ -31,14 +35,16 @@
             ]
           }
         },
-        "servicePrincipalProfile": {
-          "clientId": "clientid",
-          "secret": "secret"
-        },
         "addonProfiles": {
         },
         "enableRBAC": true,
         "enablePodSecurityPolicy": true
+      },
+      "identities": {
+        "type": "SystemAssigned, UserAssigned",
+        "userAssignedIdentities": {
+          "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}": {}
+        }
       }
     }
   },
@@ -65,7 +71,11 @@
               "maxPods": 110,
               "osType": "Linux",
               "provisioningState": "Succeeded",
-              "orchestratorVersion": "1.9.6"
+              "orchestratorVersion": "1.9.6",
+              "identity": {
+                "type": "UserAssigned",
+                "identityId": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}"
+              }
             }
           ],
           "linuxProfile": {
@@ -78,9 +88,6 @@
               ]
             }
           },
-          "servicePrincipalProfile": {
-            "clientId": "clientid"
-          },
           "nodeResourceGroup": "MC_rg1_clustername1_location1",
           "enableRBAC": true,
           "enablePodSecurityPolicy": true,
@@ -91,6 +98,17 @@
             "serviceCidr": "10.0.0.0/16",
             "dnsServiceIP": "10.0.0.10",
             "dockerBridgeCidr": "172.17.0.1/16"
+          }
+        },
+        "identities": {
+          "type": "SystemAssigned, UserAssigned",
+          "principalId": "systemAssigedIdentityPrincipalId",
+          "tenantId": "systemAssignedIdentityTenantId",
+          "userAssignedIdentities": {
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}": {
+              "principalId": "userAssigedIdentityPrincipalId",
+              "clientId": "userAssigedIdentityClientId"
+            }
           }
         }
       }
@@ -117,7 +135,11 @@
               "maxPods": 110,
               "osType": "Linux",
               "provisioningState": "Creating",
-              "orchestratorVersion": "1.9.6"
+              "orchestratorVersion": "1.9.6",
+              "identity": {
+                "type": "UserAssigned",
+                "identityId": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}"
+              }
             }
           ],
           "linuxProfile": {
@@ -130,9 +152,6 @@
               ]
             }
           },
-          "servicePrincipalProfile": {
-            "clientId": "clientid"
-          },
           "nodeResourceGroup": "MC_rg1_clustername1_location1",
           "enableRBAC": true,
           "enablePodSecurityPolicy": true,
@@ -142,6 +161,17 @@
             "serviceCidr": "10.0.0.0/16",
             "dnsServiceIP": "10.0.0.10",
             "dockerBridgeCidr": "172.17.0.1/16"
+          }
+        },
+        "identities": {
+          "type": "SystemAssigned, UserAssigned",
+          "principalId": "systemAssigedIdentityPrincipalId",
+          "tenantId": "systemAssignedIdentityTenantId",
+          "userAssignedIdentities": {
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}": {
+              "principalId": "userAssigedIdentityPrincipalId",
+              "clientId": "userAssigedIdentityClientId"
+            }
           }
         }
       }
