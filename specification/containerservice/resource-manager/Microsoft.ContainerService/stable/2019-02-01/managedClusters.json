@@ -1128,6 +1128,9 @@
             "type": "string"
           },
           "description": "(PREVIEW) Availability zones for nodes. Must use VirtualMachineScaleSets AgentPoolType."
+        },
+        "identity": {
+          "$ref": "#/definitions/AgentPoolIdentity",
         }
       },
       "required": [
@@ -1135,6 +1138,34 @@
         "count"
       ],
       "description": "Properties for the container service agent pool profile."
+    },
+    "AgentPoolIdentity": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of identity used for the agent pool. The type 'UserAssigned' will use specified user assiged identity in agent nodes. The type 'None' will not use MSI in the agent pool, service principal will be used instead.",
+          "enum": [
+            "UserAssigned",
+            "None"
+          ],
+          "x-ms-enum": {
+            "name": "ResourceIdentityType",
+            "modelAsString": false
+          },
+          "default": "None"
+        },
+        "userAssignedIdentity": {
+          "type": "object",
+          "properties": {
+            "identityId": {
+              "type": "string",
+              "description": "The resource id of user assigned identity. It should be in following form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'"
+            },
+          },
+          "description": "The user identity information associated with this agent pool."
+        }
+      },
+      "description": "User assigned identity which is installed on each agent node in the agent pool. The identity is used by kubelet on the agent pool."
     },
     "ManagedClusterAgentPoolProfile": {
       "allOf": [
@@ -1376,6 +1407,10 @@
               "description": "Properties of a managed cluster.",
               "$ref": "#/definitions/ManagedClusterProperties",
               "x-ms-client-flatten": true
+            },
+            "identity": {
+              "$ref": "#/definitions/ManagedClusterIdentity",
+              "description": "The identity of the managed cluster, if configured."
             }
           }
         }
@@ -1453,6 +1488,52 @@
         }
       },
       "description": "Properties of the managed cluster."
+    },
+    "ManagedClusterIdentity": {
+      "properties": {
+        "principalId": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The principal id of the system assigned identity which is used by master components."
+        },
+        "tenantId": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The tenant id of the system assigned identity which is used by master components."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of identity used for the managed cluster. The type 'SystemAssigned, UserAssigned' will use an implicityly created identity in master components and use specified user assiged identity in agent nodes. The type 'None' will not use MSI for the managed cluster, service principal will be used instead.",
+          "enum": [
+            "SystemAssigned, UserAssigned",
+            "None"
+          ],
+          "x-ms-enum": {
+            "name": "ResourceIdentityType",
+            "modelAsString": false
+          }
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "principalId": {
+                "readOnly": true,
+                "type": "string",
+                "description": "The principal id of user assigned identity."
+              },
+              "clientId": {
+                "readOnly": true,
+                "type": "string",
+                "description": "The client id of user assigned identity."
+              }
+            }
+          },
+          "description": "The list of user identities associated with agent pools. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'."
+        }
+      },
+      "description": "Identity for the virtual machine."
     },
     "OrchestratorProfile": {
       "properties": {
