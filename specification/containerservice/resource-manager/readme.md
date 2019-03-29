@@ -48,6 +48,7 @@ input-file:
 - Microsoft.ContainerService/stable/2017-09-30/location.json
 - Microsoft.ContainerService/stable/2019-04-01/managedClusters.json
 ```
+
 ### Tag: package-2019-02
 
 These settings apply only when `--tag=package-2019-02` is specified on the command line.
@@ -129,9 +130,15 @@ input-file:
 
 These settings apply only when `--tag=package-2019-04-only` is specified on the command line.
 
+<<<<<<< HEAD
 ```yaml $(tag) == 'package-2019-04-only'
 input-file:
 - Microsoft.ContainerService/stable/2019-04-30/openShiftManagedClusters.json
+=======
+``` yaml $(tag) == 'package-2019-04-only'
+input-file:
+- Microsoft.ContainerService/stable/2019-04-01/managedClusters.json
+>>>>>>> 5b003dcff... Adding windowsProfile and maxAgentPools property in the new 2019-04-01 api version (#5465)
 ```
 
 ### Tag: package-2019-02-only
